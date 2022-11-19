@@ -1,3 +1,4 @@
+using ITProvisioning.API.Controllers;
 using ITProvisioning.API.Data;
 using ITProvisioning.API.Helpers;
 using ITProvisioning.API.Services;
@@ -17,6 +18,7 @@ services.AddSwaggerGen();
 
 services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 services.AddScoped<IUserService, UserService>();
+services.AddScoped<ValidationFilterAttribute>();
 
 services.AddDbContext<ITProvisioningDbContext>(options => 
 options.UseNpgsql(builder.Configuration.GetConnectionString("ITProvisionDbConnection")));

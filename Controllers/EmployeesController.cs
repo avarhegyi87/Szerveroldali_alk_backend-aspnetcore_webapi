@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITProvisioning.API.Controllers {
-    
+
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeesController : Controller {
@@ -21,6 +21,7 @@ namespace ITProvisioning.API.Controllers {
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> AddEmployee([FromBody] Employee employeeRequest) {
             employeeRequest.Id = Guid.NewGuid();
 
@@ -44,6 +45,7 @@ namespace ITProvisioning.API.Controllers {
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateEmployee([FromRoute] Guid id, Employee updateEmployeeRequest) {
             var employee = await _itProvisioningDbContext.Employees.FindAsync(id);
 
